@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooter Login</title>
+    <style>
+        root {
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --border-color: #dddddd;
+            --hover-color: #f9f9f9;
+            --button-color: #000000;
+            --button-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --background-color: #1a1a1a;
+            --card-background: #2d2d2d;
+            --text-color: #ffffff;
+            --border-color: #404040;
+            --hover-color: #3d3d3d;
+            --button-color: #ffffff;
+            --button-text: #000000;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Остальные стили остаются теми же */
+        .container {
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            width: 90%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            padding: 8px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: none;
+            cursor: pointer;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .language-btn {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language-btn.active {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-btn.active {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+
+        .auth-type-switcher {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .auth-type-btn {
+            padding: 8px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .auth-type-btn.active {
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #333;
+        }
+
+        .registration-fields {
+            display: none;
+        }
+
+        .registration-fields.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="theme-toggle" aria-label="Toggle theme">
+            🌓
+        </button>
+        <div class="language-selector">
+            <button class="language-btn active" data-lang="ru">RU</button>
+            <button class="language-btn" data-lang="ro">RO</button>
+            <button class="language-btn" data-lang="en">EN</button>
+        </div>
+
+        <div class="user-type-selector">
+            <button class="user-type-btn active" data-user-type="specialist" href="regform.html#specialist">Специалист</button>
+            <button class="user-type-btn" data-user-type="client" href="regform.html#client">Клиент</button>
+        </div>
+      <form id="authForm">
+            <div class="auth-type-switcher">
+                <button type="button" class="auth-type-btn active" data-auth-type="login">Вход</button>
+                <button type="button" class="auth-type-btn" data-auth-type="register">Регистрация</button>
+            </div>
+
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Пароль" required>
+            
+            <div class="registration-fields">
+                <input type="text" placeholder="Имя" required>
+                <input type="text" placeholder="Фамилия" required>
+                <input type="tel" placeholder="Телефон" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Войти</button>
+        </form>
+    </div>
+
+    <script>
+        const translations = {
+            ru: {
+                specialist: 'Специалист',
+                client: 'Клиент',
+                login: 'Вход',
+                register: 'Регистрация',
+                email: 'Email',
+                password: 'Пароль',
+                firstName: 'Имя',
+                lastName: 'Фамилия',
+                phone: 'Телефон',
+                submitLogin: 'Войти',
+                submitRegister: 'Зарегистрироваться'
+            },
+            ro: {
+                specialist: 'Specialist',
+                client: 'Client',
+                login: 'Autentificare',
+                register: 'Înregistrare',
+                email: 'Email',
+                password: 'Parola',
+                firstName: 'Prenume',
+                lastName: 'Nume',
+                phone: 'Telefon',
+                submitLogin: 'Conectare',
+                submitRegister: 'Înregistrare'
+            },
+            en: {
+                specialist: 'Specialist',
+                client: 'Client',
+                login: 'Login',
+                register: 'Register',
+                email: 'Email',
+                password: 'Password',
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                phone: 'Phone',
+                submitLogin: 'Login',
+                submitRegister: 'Register'
+            }
+        };
+
+        let currentLang = 'ru';
+        let isRegistration = false;
+
+        // Language switcher
+        const langButtons = document.querySelectorAll('.language-btn');
+        function updateTexts(lang) {
+            const texts = translations[lang];
+            document.querySelectorAll('[data-user-type="specialist"]')[0].textContent = texts.specialist;
+            document.querySelectorAll('[data-user-type="client"]')[0].textContent = texts.client;
+            document.querySelectorAll('[data-auth-type="login"]')[0].textContent = texts.login;
+            document.querySelectorAll('[data-auth-type="register"]')[0].textContent = texts.register;
+            
+            const inputs = document.querySelectorAll('input');
+            inputs[0].placeholder = texts.email;
+            inputs[1].placeholder = texts.password;
+            inputs[2].placeholder = texts.firstName;
+            inputs[3].placeholder = texts.lastName;
+            inputs[4].placeholder = texts.phone;
+
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = isRegistration ? texts.submitRegister : texts.submitLogin;
+        }
+
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentLang = btn.dataset.lang;
+                updateTexts(currentLang);
+            });
+        });
+
+        // User type switcher
+        const userTypeButtons = document.querySelectorAll('.user-type-btn');
+        userTypeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                userTypeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+      // Auth type switcher
+        const authTypeButtons = document.querySelectorAll('.auth-type-btn');
+        const registrationFields = document.querySelector('.registration-fields');
+        const submitButton = document.querySelector('.submit-btn');
+
+        authTypeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                authTypeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                isRegistration = btn.dataset.authType === 'register';
+                registrationFields.classList.toggle('visible', isRegistration);
+                submitButton.textContent = translations[currentLang][isRegistration ? 'submitRegister' : 'submitLogin'];
+            });
+        });
+
+        // Form submission
+        document.getElementById('authForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userType = document.querySelector('.user-type-btn.active').dataset.userType;
+            const authType = document.querySelector('.auth-type-btn.active').dataset.authType;
+            alert(`${authType === 'register' ? 'Регистрация' : 'Вход'} ${userType === 'specialist' ? 'специалиста' : 'клиента'}`);
+        });
+
+        // Упрощенный скрипт переключения темы
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? '' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+        });
+    </script>
+</body>
+</html>

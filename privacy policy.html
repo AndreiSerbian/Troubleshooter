@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-color: #dee2e6;
+            --accent-color: #f18f01;
+            --header-bg: #f8f9fa;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-color: #404040;
+            --accent-color: #f18f01;
+            --header-bg: #2d2d2d;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .header {
+            background-color: var(--header-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .theme-toggle {
+            background: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            padding: 0.25rem;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+        .policy-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .policy-section.active {
+            display: block;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        p, ul, ol {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        ul, ol {
+            margin-left: 2rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .content {
+                padding: 1rem;
+                margin: 1rem;
+            }
+        }
+        .language-indicator {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="header-component" width="100%" height="fit-content" src="header.html"></iframe>
+    <div class="content">
+        <!-- Russian Version -->
+        <div id="policy-ru" class="policy-section">
+            <h1>Политика конфиденциальности</h1>
+            <h2>1. Общие положения</h2>
+            <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей.</p>
+            <h2>2. Сбор и использование информации</h2>
+            <p>Мы собираем следующую информацию:</p>
+            <ul>
+                <li>Личные данные (имя, email)</li>
+                <li>Технические данные (IP-адрес, cookies)</li>
+                <li>Информация об использовании сервиса</li>
+            </ul>
+        </div>
+        <!-- English Version -->
+        <div id="policy-en" class="policy-section">
+            <h1>Privacy Policy</h1>
+            <h2>1. General Provisions</h2>
+            <p>This Privacy Policy determines the procedure for processing and protecting users' personal data.</p>
+            <h2>2. Collection and Use of Information</h2>
+            <p>We collect the following information:</p>
+            <ul>
+                <li>Personal data (name, email)</li>
+                <li>Technical data (IP address, cookies)</li>
+                <li>Service usage information</li>
+            </ul>
+        </div>
+        <!-- Romanian Version -->
+        <div id="policy-ro" class="policy-section">
+            <h1>Politica de Confidențialitate</h1>
+            <h2>1. Dispoziții Generale</h2>
+            <p>Această Politică de Confidențialitate stabilește procedura de procesare și protecție a datelor personale ale utilizatorilor.</p>
+            <h2>2. Colectarea și Utilizarea Informațiilor</h2>
+            <p>Colectăm următoarele informații:</p>
+            <ul>
+                <li>Date personale (nume, email)</li>
+                <li>Date tehnice (adresă IP, cookies)</li>
+                <li>Informații despre utilizarea serviciului</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Theme switching
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-toggle').textContent = isDark ? '🌙' : '☀️';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize theme
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const theme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+        });
+
+        // Change language
+        function changeLanguage(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+            document.querySelectorAll('.policy-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`policy-${lang}`).classList.add('active');
+            document.getElementById('langIndicator').textContent = lang.toUpperCase();
+        }
+
+        // Initialize language
+        function initLanguage() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+            changeLanguage(savedLang);
+        }
+
+// Load header
+async function loadHeader() {
+    try {
+        const response = await fetch('header.html');
+        if (!response.ok) throw new Error('Не удалось загрузить header');
+        const headerHTML = await response.text();
+        document.getElementById('header-container').innerHTML = headerHTML;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+// Sync theme and language across tabs
+window.addEventListener('storage', (event) => {
+    if (event.key === 'theme') {
+        document.documentElement.setAttribute('data-theme', event.newValue);
+        document.getElementById('theme-toggle').textContent = event.newValue === 'dark' ? '☀️' : '🌙';
+    }
+    if (event.key === 'preferredLanguage') {
+        changeLanguage(event.newValue);
+    }
+});
+
+// Read language from header and set content accordingly
+function setLanguageFromHeader() {
+    const headerLang = document.querySelector('header').getAttribute('lang');
+    if (headerLang) {
+        changeLanguage(headerLang);
+    }
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initLanguage();
+    loadHeader().then(setLanguageFromHeader);
+});
+</script>
+</body>
+</html>

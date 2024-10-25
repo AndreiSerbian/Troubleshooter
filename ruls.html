@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace Rules</title>
+
+    <style>
+
+        :root {
+
+            --bg-color: #ffffff;
+
+            --text-color: #333333;
+
+            --header-bg: #f0f0f0;
+
+            --border-color: #dddddd;
+
+            --button-bg: #4a90e2;
+
+            --button-text: #ffffff;
+
+            --button-hover: #357abd;
+
+        }
+
+        [data-theme="dark"] {
+
+            --bg-color: #1a1a1a;
+
+            --text-color: #ffffff;
+
+            --header-bg: #2d2d2d;
+
+            --border-color: #404040;
+
+            --button-bg: #2d5a8c;
+
+            --button-hover: #1d3c5c;
+
+        }
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            transition: background-color 0.3s, color 0.3s;
+
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            line-height: 1.6;
+
+            background-color: var(--bg-color);
+
+            color: var(--text-color);
+
+        }
+
+        .header {
+
+            background-color: var(--header-bg);
+
+            padding: 1rem;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+        .controls {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 1rem;
+
+        }
+
+        .language-buttons, .theme-toggle {
+
+            display: flex;
+
+            gap: 0.5rem;
+
+        }
+
+        button {
+
+            padding: 0.5rem 1rem;
+
+            border: none;
+
+            border-radius: 4px;
+
+            background-color: var(--button-bg);
+
+            color: var(--button-text);
+
+            cursor: pointer;
+
+            transition: background-color 0.3s;
+
+        }
+
+        button:hover {
+
+            background-color: var(--button-hover);
+
+        }
+
+        .content {
+
+            max-width: 1200px;
+
+            margin: 2rem auto;
+
+            padding: 0 1rem;
+
+        }
+
+        .rules-section {
+
+            display: none;
+
+            animation: fadeIn 0.5s;
+
+        }
+
+        .rules-section.active {
+
+            display: block;
+
+        }
+
+        h1 {
+
+            margin-bottom: 2rem;
+
+            font-size: 2rem;
+
+        }
+
+        h2 {
+
+            margin: 1.5rem 0 1rem;
+
+            font-size: 1.5rem;
+
+        }
+
+        ul {
+
+            margin-left: 2rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+        li {
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+        @media (max-width: 768px) {
+
+            .controls {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+            .language-buttons {
+
+                justify-content: center;
+
+            }
+
+            h1 {
+
+                font-size: 1.5rem;
+
+            }
+
+            h2 {
+
+                font-size: 1.25rem;
+
+            }
+
+        }
+
+        @media (min-width: 2048px) {
+
+            .content {
+
+                max-width: 1600px;
+
+            }
+
+            body {
+
+                font-size: 18px;
+
+            }
+
+            h1 {
+
+                font-size: 2.5rem;
+
+            }
+
+            h2 {
+
+                font-size: 2rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="controls">
+
+            <div class="language-buttons">
+
+                <button onclick="changeLanguage('ru')">Русский</button>
+
+                <button onclick="changeLanguage('en')">English</button>
+
+                <button onclick="changeLanguage('ro')">Română</button>
+
+            </div>
+
+            <button onclick="toggleTheme()" id="theme-toggle">🌙</button>
+
+        </div>
+
+    </header>
+
+    <main class="content">
+
+        <!-- Russian -->
+
+        <section id="ru" class="rules-section active">
+
+            <h1>Правила пользования маркетплейсом ремонтных услуг</h1>
+
+            
+
+            <h2>О платформе</h2>
+
+            <ul>
+
+                <li>Маркетплейс выступает исключительно как информационный посредник</li>
+
+                <li>Платформа не участвует в переговорах между клиентом и мастером</li>
+
+                <li>Маркетплейс не несет ответственности за качество выполненных работ</li>
+
+                <li>Все договоренности обсуждаются напрямую между клиентом и мастером</li>
+
+                <li>Платформа не предоставляет гарантий на выполненные работы</li>
+
+            </ul>
+
+            <h2>Для мастеров</h2>
+
+            <ul>
+
+                <li>Обязательная верификация личности и опыта</li>
+
+                <li>Точное описание услуг и цен</li>
+
+                <li>Профессиональная коммуникация</li>
+
+                <li>Соблюдение сроков и качества</li>
+
+            </ul>
+
+            <h2>Для клиентов</h2>
+
+            <ul>
+
+                <li>Четкое описание требуемых работ</li>
+
+                <li>Использование безопасной системы платежей</li>
+
+                <li>Обеспечение доступа к месту работы</li>
+
+                <li>Подтверждение выполнения работ</li>
+
+            </ul>
+
+        </section>
+
+        <!-- English -->
+
+        <section id="en" class="rules-section">
+
+            <h1>Home Repair Services Marketplace Rules</h1>
+
+            
+
+            <h2>About the Platform</h2>
+
+            <ul>
+
+                <li>The marketplace serves exclusively as an information intermediary</li>
+
+                <li>The platform does not participate in negotiations between client and service provider</li>
+
+                <li>The marketplace bears no responsibility for the quality of completed works</li>
+
+                <li>All agreements are discussed directly between client and service provider</li>
+
+                <li>The platform does not provide warranties for completed works</li>
+
+            </ul>
+
+            <h2>For Service Providers</h2>
+
+            <ul>
+
+                <li>Mandatory identity and experience verification</li>
+
+                <li>Accurate service and pricing description</li>
+
+                <li>Professional communication</li>
+
+                <li>Meeting deadlines and quality standards</li>
+
+            </ul>
+
+            <h2>For Clients</h2>
+
+            <ul>
+
+                <li>Clear description of required works</li>
+
+                <li>Use of secure payment system</li>
+
+                <li>Providing access to work site</li>
+
+                <li>Confirmation of work completion</li>
+
+            </ul>
+
+        </section>
+
+        <!-- Romanian -->
+
+        <section id="ro" class="rules-section">
+
+            <h1>Reguli pentru utilizarea platformei de servicii de reparații</h1>
+
+            
+
+            <h2>Despre platformă</h2>
+
+            <ul>
+
+                <li>Platforma servește exclusiv ca intermediar informațional</li>
+
+                <li>Platforma nu participă la negocierile dintre client și prestator</li>
+
+                <li>Platforma nu își asumă responsabilitatea pentru calitatea lucrărilor efectuate</li>
+
+                <li>Toate acordurile sunt discutate direct între client și prestator</li>
+
+                <li>Platforma nu oferă garanții pentru lucrările efectuate</li>
+
+            </ul>
+
+            <h2>Pentru meșteri</h2>
+
+            <ul>
+
+                <li>Verificarea obligatorie a identității și experienței</li>
+
+                <li>Descrierea exactă a serviciilor și prețurilor</li>
+
+                <li>Comunicare profesională</li>
+
+                <li>Respectarea termenelor și standardelor de calitate</li>
+
+            </ul>
+
+            <h2>Pentru clienți</h2>
+
+            <ul>
+
+                <li>Descrierea clară a lucrărilor necesare</li>
+
+                <li>Utilizarea sistemului securizat de plăți</li>
+
+                <li>Asigurarea accesului la locul de muncă</li>
+
+                <li>Confirmarea finalizării lucrărilor</li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        function changeLanguage(lang) {
+
+            // Hide all sections
+
+            document.querySelectorAll('.rules-section').forEach(section => {
+
+                section.classList.remove('active');
+
+            });
+
+            
+
+            // Show selected language section
+
+            document.getElementById(lang).classList.add('active');
+
+            
+
+            // Update html lang attribute
+
+            document.documentElement.lang = lang;
+
+        }
+
+        function toggleTheme() {
+
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            
+
+            // Update button text
+
+            const themeToggle = document.getElementById('theme-toggle');
+
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+        }
+
+        // Check system preference for dark mode
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+
+            document.documentElement.setAttribute('data-theme', 'dark');
+
+            document.getElementById('theme-toggle').textContent = '☀️';
+
+        }
+
+        // Listen for system theme changes
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+
+            const theme = e.matches ? 'dark' : 'light';
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+
+        });
+
+    </script>
+
+</body>
+
+</html>

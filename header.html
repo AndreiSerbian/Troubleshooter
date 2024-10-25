@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Dropdown Menu</title>
+  <style>
+    /* Основной стиль — бургер и кнопка закрытия по умолчанию скрыты */
+    .burger-menu, .close-menu {
+      display: none;
+    }
+
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --border-color: #dee2e6;
+      --accent-color: #f18f01;
+      --header-bg: #f8f9fa;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --border-color: #404040;
+      --accent-color: #f18f01;
+      --header-bg: #2d2d2d;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      background-color: var(--header-bg);
+      color: var(--text-primary);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      font-family: 'Energetic', sans-serif;
+      font-size: 16px;
+      box-shadow: 0 4px 6px var(--shadow-color);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 25%;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 50px;
+      border-radius: 0.5rem;
+      background-color: var(--accent-color);
+    }
+
+    .nav-menu-wrapper {
+      position: relative;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      position: absolute;
+      background-color: #f18f01;
+      min-width: fit-content;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      display: none;
+    }
+
+    .nav-menu li {
+      margin: 0.25rem;
+      position: relative;
+    }
+
+    .nav-menu li:hover > ul {
+      display: block;
+    }
+
+    .nav-menu a {
+      color: #020202;
+      text-decoration: underline;
+      display: block;
+      padding: 0.5rem 0.5rem;
+    }
+
+    .lang-menu {
+      min-width: 80px;
+    }
+
+    .lang-dropdown .lang-menu {
+      left: auto;
+      right: 0;
+    }
+
+    .dropdown .dropdown-menu,
+    .lang-dropdown .lang-menu {
+      display: none;
+    }
+
+    #menu-toggle {
+      display: none;
+    }
+
+ 
+
+    /* Медиа-стили для малых устройств (максимум 767.98px) */
+    @media (max-width: 767.98px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 3rem 1rem;
+        box-sizing: border-box;
+        overflow-y: auto;
+        z-index: 5;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .nav-menu.open {
+        display: flex;
+        opacity: 1;
+      }
+
+      .nav-menu li {
+        margin: 0.5rem 0;
+      }
+
+      /* Отображаем бургер и кнопку закрытия только на малых экранах */
+      .burger-menu {
+        display: block;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+      }
+
+      .close-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: white;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+      }
+
+      #menu-toggle:checked ~ .nav-menu {
+        display: flex;
+      }
+
+      #menu-toggle:checked ~ .burger-menu {
+        display: none;
+      }
+
+      #menu-toggle:checked ~ .close-menu {
+        display: block;
+      }
+
+      .lang-dropdown .lang-menu {
+        left: auto;
+        right: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header-component">
+    <nav class="nav-container">
+      <div class="nav-content">
+        <a class="brand-link" aria-label="Brand" href="/">
+          <img src="/Images/logo.svg" alt="Logo" class="brand-logo" />
+          <p class="brand-text">Troubleshooter</p>
+        </a>
+      </div>
+      <div class="burger-container">
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="burger-menu">☰</label>
+        <label for="menu-toggle" class="close-menu">✕</label>
+
+        <div class="nav-menu-wrapper">
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#" id="main-link">Главная</a></li>
+            <li class="dropdown-enter">
+              <a href="#" id="login-link">Вход</a>
+              <ul class="dropdown-menu">
+                <li><a href="regform.html" id="register-link">Регистрация</a></li>
+                <li><a href="regform.html#specialist" id="specialist-link">Вход для специалистов</a></li>
+                <li><a href="regform.html#client" id="client-link">Вход для клиентов</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" id="about-link">О нас</a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="news-link">Новости</a></li>
+                <li><a href="#" id="about-project-link">О проекте</a></li>
+                <li><a href="#" id="jobs-link">Вакансии</a></li>
+                <li><a href="#" id="partners-link">Партнеры и инвесторы</a></li>
+                <li><a href="ruls.html" id="rules-link">Правила</a></li>
+                <li><a href="privacy policy.html" id="privacy-policy-link">Политика конфиденциальности</a></li>
+              </ul>
+            </li>
+            <li><a href="#" id="team-link">Команда</a></li>
+            <li><a href="#" id="contacts-link">Контакты</a></li>
+            <li class="lang-dropdown">
+              <a href="#" class="lang-toggle" id="current-lang">RU</a>
+              <ul class="lang-menu">
+                <li><a href="#" data-lang="en">EN</a></li>
+                <li><a href="#" data-lang="ro">RO</a></li>
+                <li><a href="#" data-lang="ru">RU</a></li>
+              </ul>
+            </li>
+            <button onclick="toggleTheme()" class="theme-toggle" id="theme-toggle">🌙</button>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <script>
+    function updateMenuText(lang) {
+      const translations = {
+        ru: {
+          main: 'Главная',
+          login: 'Вход',
+          register: 'Регистрация',
+          specialist: 'Вход для специалистов',
+          client: 'Вход для клиентов',
+          about: 'О нас',
+          news: 'Новости',
+          aboutProject: 'О проекте',
+          jobs: 'Вакансии',
+          partners: 'Партнеры и инвесторы',
+          rules: 'Правила',
+          privacyPolicy: 'Политика конфиденциальности',
+          team: 'Команда',
+          contacts: 'Контакты'
+        },
+        ro: {
+          main: 'Principală',
+          login: 'Autentificare',
+          register: 'Înregistrare',
+          specialist: 'Intrare pentru specialiști',
+          client: 'Intrare pentru clienți',
+          about: 'Despre noi',
+          news: 'Știri',
+          aboutProject: 'Despre proiect',
+          jobs: 'Locuri de muncă',
+          partners: 'Parteneri și investitori',
+          rules: 'Reguli',
+          privacyPolicy: 'Politica de confidențialitate',
+          team: 'Echipă',
+          contacts: 'Contacte'
+        },
+        en: {
+          main: 'Home',
+          login: 'Login',
+          register: 'Register',
+          specialist: 'Specialist Login',
+          client: 'Client Login',
+          about: 'About Us',
+          news: 'News',
+          aboutProject: 'About Project',
+          jobs: 'Jobs',
+          partners: 'Partners & Investors',
+          rules: 'Rules',
+          privacyPolicy: 'Privacy Policy',
+          team: 'Team',
+          contacts: 'Contacts'
+        }
+      };
+
+      // Проверяем, есть ли переводы для выбранного языка
+      if (!translations[lang]) {
+        console.error(`Нет переводов для языка: ${lang}`);
+        return;
+      }
+
+      // Применяем переводы к меню
+      document.getElementById('main-link').textContent = translations[lang].main;
+      document.getElementById('login-link').textContent = translations[lang].login;
+      document.getElementById('register-link').textContent = translations[lang].register;
+      document.getElementById('specialist-link').textContent = translations[lang].specialist;
+      document.getElementById('client-link').textContent = translations[lang].client;
+      document.getElementById('about-link').textContent = translations[lang].about;
+      document.getElementById('news-link').textContent = translations[lang].news;
+      document.getElementById('about-project-link').textContent = translations[lang].aboutProject;
+      document.getElementById('jobs-link').textContent = translations[lang].jobs;
+      document.getElementById('partners-link').textContent = translations[lang].partners;
+      document.getElementById('rules-link').textContent = translations[lang].rules;
+      document.getElementById('privacy-policy-link').textContent = translations[lang].privacyPolicy;
+      document.getElementById('team-link').textContent = translations[lang].team;
+      document.getElementById('contacts-link').textContent = translations[lang].contacts;
+    }
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const closeMenu = document.querySelector('.close-menu');
+
+    // Логика для открытия/закрытия основного меню
+    menuToggle.addEventListener('change', () => {
+      navMenu.classList.toggle('open', menuToggle.checked);
+    });
+
+    // Обработчик для принудительного закрытия меню при клике на "X"
+    closeMenu.addEventListener('click', (event) => {
+      event.preventDefault(); // Предотвращаем стандартное поведение
+      menuToggle.checked = false; // Снимаем чекбокс, чтобы закрыть меню
+      navMenu.classList.remove('open'); // Удаляем класс 'open' для скрытия меню
+    });
+
+    // Логика для выпадающих меню
+    document.querySelectorAll('.dropdown-toggle').forEach((toggle) => {
+      toggle.addEventListener('click', (event) => {
+        event.preventDefault();
+        const dropdownMenu = toggle.nextElementSibling;
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    // Управление показом/скрытием языкового меню
+    document.querySelector('.lang-toggle').addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const langMenu = document.querySelector('.lang-menu');
+      const isVisible = langMenu.style.display === 'block';
+      langMenu.style.display = isVisible ? 'none' : 'block';
+    });
+
+    // Логика выбора языка
+    document.querySelectorAll('.lang-menu a').forEach((langLink) => {
+      langLink.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const selectedLang = langLink.getAttribute('data-lang'); // Получаем выбранный язык
+
+        // Сохраняем выбранный язык в localStorage
+        localStorage.setItem('preferredLanguage', selectedLang);
+
+        // Отправляем глобальное событие для уведомления остальных частей приложения
+        document.dispatchEvent(new CustomEvent('languageChange', { detail: { lang: selectedLang } }));
+
+        // Обновляем текст текущего языка
+        const currentLang = document.getElementById('current-lang');
+        currentLang.textContent = selectedLang.toUpperCase();
+
+        // Обновляем текст меню
+        updateMenuText(selectedLang);
+
+        // Закрываем меню
+        document.querySelector('.lang-menu').style.display = 'none';
+      });
+    });
+
+    // Закрытие меню при клике вне области
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.lang-dropdown')) {
+        document.querySelector('.lang-menu').style.display = 'none';
+      }
+    });
+
+    // Инициализация выбранного языка из localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'ru'; // По умолчанию русский
+      const currentLang = document.getElementById('current-lang');
+      currentLang.textContent = savedLang.toUpperCase();
+      document.documentElement.lang = savedLang;
+
+      // Обновляем текст меню при загрузке страницы
+      updateMenuText(savedLang);
+
+      // Отправляем событие для начального языка
+      document.dispatchEvent(new CustomEvent('languageChange', { detail: { lang: savedLang } }));
+    });
+
+    const themeToggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? '' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+
+      // Обновление иконки кнопки
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+</html>
