@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Troubleshooter</title>
     <link rel="stylesheet" href="css\styles.css" />
-    <link rel='website icon' type=png href='Images\iconTR.png'>
+    <link rel='website icon' type=png href='Images\logo.svg' />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -18,50 +18,53 @@
   <body>
     <main>
       <header class="header">
-
         <nav class="nav-container">
-
-            <div class="nav-content">
+          <div class="nav-content">
             <a class="brand-link" aria-label="Brand" href="/">
-              <img
-                src="https://yralcgckodgemrozhvhn.supabase.co/storage/v1/object/public/websites-data/logo/uRgFGSNUFfQXOEIx"
-                alt=""
-                class="brand-logo"
-              />
+              <img src="/Images/logo.svg" alt="Logo" class="brand-logo" />
               <p class="brand-text">Troubleshooter</p>
             </a>
           </div>
-
-            <input type="checkbox" id="menu-toggle">
-
-            <label for="menu-toggle" class="burger-menu">☰</label>
-
-            <label for="menu-toggle" class="close-menu">✕</label>
-
-            <ul class="nav-menu">
-
-                <li><a href="#">Главная</a></li>
-
-                <li><a href="#">Новости</a></li>
-
-                <li><a href="#">О нас</a></li>
-
-                <li><a href="#">Команда</a></li>
-
-                <li><a href="#">Контакты</a></li>
-
+          <div class="burger-container">
+          <input type="checkbox" id="menu-toggle" />
+          <label for="menu-toggle" class="burger-menu">☰</label>
+          <label for="menu-toggle" class="close-menu">✕</label>
+    
+          <div class="nav-menu-wrapper">
+            <ul class="nav-menu" id="nav-menu">
+              <li><a href="#">Главная</a></li>
+              <li><a href="#">Новости</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle">О нас</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">О проекте</a></li>
+                  <li><a href="#">Вакансии</a></li>
+                  <li><a href="#">Партнеры и инвесторы</a></li>
+                  <li><a href="#">Правила</a></li>
+                  <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Команда</a></li>
+              <li><a href="#">Контакты</a></li>
+              <li class="lang-dropdown">
+                <a href="#" class="lang-toggle">RU</a>
+                <ul class="lang-menu">
+                  <li><a href="#" id="en">EN</a></li>
+                  <li><a href="#" id="ro">RO</a></li>
+                </ul>
+              </li>
             </ul>
-
+          </div>
+        </div>
         </nav>
-
-    </header>
+      </header>
 
       <section class="hero-section">
         <div class="container">
           <div class="content">
             <div class="text-content">
               <h1 class="title">Troubleshooter</h1>
-              <p class="description">Агрегатор рабочих услуг</p>
+              <p class="description">Агрегатор ремонтных услуг</p>
               <div class="button-wrapper">
                 <a class="cta-button" href="/catalog">Каталог специалистов</a>
               </div>
@@ -488,7 +491,7 @@
 
                 <div class="select-wrapper">
                   <div class="select-arrow-2"></div>
-                  <select>
+                  <select name="district">
                     <option value="Select district">Выберите район</option>
                     <option value="aneni-noi">Анений-Ной</option>
                     <option value="basarabeasca">Басарабяска</option>
@@ -529,13 +532,12 @@
                   </select>
                 </div>
 
-                <label for="client-request">Ваш адрес:</label>
-                <input
-                  type="tel"
-                  id="client-phone"
-                  name="client-phone"
+                <label for="client-address">Ваш адрес:</label>
+                <textarea
+                  id="client-address"
+                  name="client-address"
                   required
-                />
+                ></textarea>
                 <div class="select-wrapper-catalog">
                   <div class="select-arrow-2"></div>
                   <select>
@@ -622,20 +624,10 @@
               <fieldset>
                 <legend>Форма для партнеров</legend>
                 <label for="partner-name">Ваше имя:</label>
-                <input
-                  type="text"
-                  id="partner-name"
-                  name="partner-name"
-                  required
-                />
-                <label for="partner-name">Ваш возраст:</label>
-                <input
-                  type="text"
-                  id="partner-name"
-                  name="partner-name"
-                  required
-                />
-
+                <input type="text" id="partner-name" name="partner-name" required />
+                <label for="partner-age">Ваш возраст:</label>
+                <input type="text" id="partner-age" name="partner-age" required />
+                
                 <label for="partner-phone"
                   >Ваш телефон (Формат: +37312345678)</label
                 >
@@ -647,7 +639,7 @@
                 />
                 <div class="select-wrapper">
                   <div class="select-arrow-2"></div>
-                  <select>
+                  <select name="partner-districs">
                     <option value="Select district">
                       Выберите район работ
                     </option>
@@ -701,21 +693,21 @@
                   name="partner-experience"
                   required
                 ></textarea>
-                <label for="partner-experience"
+                <label for="partner-tools"
                   >Имеются ли у вас инструменты, какие?</label
                 >
                 <textarea
-                  id="partner-experience"
-                  name="partner-experience"
+                  id="partner-tools"
+                  name="partner-tools"
                   required
                 ></textarea>
-                <label for="partner-experience"
+                <label for="partner-hasWork"
                   >У вас имеется постоянная работа в Молдове?</label
                 >
                 <div class="radio-container">
                   <input type="radio" id="work1" name="work" value="yes" />
                   <label for="work1">Да</label>
-                  <input type="radio" id="work1" name="work" value="No" />
+                  <input type="radio" id="work2" name="work" value="No" />
                   <label for="work2">Нет</label>
                 </div>
               </fieldset>

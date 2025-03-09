@@ -69,120 +69,125 @@
 }
 
 
-/* Черная кнопка с темно-синим ховером и #f5f5f5 text*/
-
-    
-
-/* Оранжевая кнопка с #020202 ховером и #f5f5f5 text*/
-
-
-/*Стили для контейнеров с select*/
-
-
-
-.header {
-
-    background-color: #020202;
-
-    color: white;
-
-    padding: 1rem;
-
-}
-
-.nav-container {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-    position: relative;
-
-}
-
-.nav-content {
-display: flex;
-align-items: center;
-justify-content: space-between;
-width: 35%;
-}
-
-.brand-link {
-display: flex;
-align-items: center;
-gap: 0.5rem; /* gap-2 */
-font-size: 1.25rem; /* text-xl */
-font-weight: 600; /* font-semibold */
-color: white;
-text-decoration: none;
-}
-
-.brand-logo {
-width: 50px;
-border-radius: 0.5rem; /* rounded-lg */
-}
-
-.brand-text {
-font-size: 1rem; /* text-16px */
-}
-.nav-menu {
-
-    display: flex;
-
-    list-style-type: none;
-
-    margin: 0;
-
-    padding: 0;
-
-}
-
-.nav-menu li {
-
-    margin-left: 1rem;
-
-}
-
-.nav-menu a {
-    color: white;
-  
-}
-
-.nav-menu a:hover{
-    color: #F18F01;
-    text-decoration: line;
-}
-
-
 .burger-menu, .close-menu {
-
     display: none;
+  }
+  
+  .header {
+    background-color: #020202;
+    color: white;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 25%;
+  }
+  
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .brand-logo {
+    width: 50px;
+    border-radius: 0.5rem;
+    background-color: #f18f01;
+    }
 
-    font-size: 1.5rem;
+    .nav-menu-wrapper {
+        position: relative;
+    }
 
-    cursor: pointer;
+    .nav-menu {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
 
-    position: absolute;
+    .nav-menu ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: absolute;
+        background-color: #f18f01;
+        min-width: fit-content;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        display: none;
+    }
 
-    right: 1rem;
+    .nav-menu li {
+        margin: 0.25rem;
+        position: relative;
+    }
 
-    top: 50%;
+    .nav-menu li:hover > ul {
+        display: block;
+    }
 
-    transform: translateY(-50%);
+    .nav-menu a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 0.5rem 0.5rem;
+    }
 
-}
+    .lang-menu {
+        width: 30px;
+    }
 
-#menu-toggle {
+    .lang-dropdown .lang-menu {
+        left: auto;
+        right: 0;
+    }
 
-    display: none;
+    .dropdown .dropdown-menu,
+    .lang-dropdown .lang-menu {
+        display: none;
+    }
 
-}
+    .dropdown:hover .dropdown-menu,
+    .lang-dropdown:hover .lang-menu {
+        display: block;
+    }
+
+
+    .theme-toggle {
+        padding: 8px;
+        border-radius: 50%;
+        border: 1px solid var(--border-color);
+        background: none;
+        cursor: pointer;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    #menu-toggle {
+        display: none;
+    }
 
     .hero-section {
         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/Images/First_slide.png");
